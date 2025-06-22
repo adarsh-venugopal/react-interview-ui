@@ -1,22 +1,31 @@
-import axios from 'axios'
+// Fully mock axios.create() and its instance
+const mockGet = jest.fn();
 
-import { fetchAllWidgets } from './apiConnect'
+jest.mock('axios', () => {
+  return {
+    create: () => ({
+      get: mockGet,
+    }),
+  };
+});
 
-jest.mock('axios')
+import { fetchAllWidgets } from './apiConnect';
 
 describe('fetchAllWidgets', () => {
+  beforeEach(() => {
+    mockGet.mockReset(); // Clear previous calls
+  });
+
   it('returns response data', async () => {
-    const widgetList = [{ description: 'Keeps a diary',  name: 'Widget Jones', price: 9.95 }]
-    axios.get = jest.fn().mockResolvedValueOnce({ data: widgetList })
+    const widgetList = [{ name: 'Widget Jones', description: 'Keeps a diary', price: 9.95 }];
+    mockGet.mockResolvedValueOnce({ data: widgetList });
 
-    const result = await fetchAllWidgets()
+    const result = await fetchAllWidgets();
+    expect(result).toEqual(widgetList);
+  });
 
-    expect(result).toEqual(widgetList)
-  })
-
-  it('errors on reject', async () => {
-    axios.get = jest.fn().mockRejectedValueOnce({})
-
-    expect(fetchAllWidgets()).rejects.toBeTruthy()
-  })
-})
+  it('throws on fetch error', async () => {
+    mockGet.mockRejectedValueOnce(new Error('Fetch failed'));
+    await expect(fetchAllWidgets()).rejects.toThrow('Fetch failed');
+  });
+});
