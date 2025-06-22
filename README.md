@@ -15,11 +15,14 @@ First, start the backend service by running ./gradlew bootRun.
 Then, do 
 
 npm install 
+
 npm start (for starting the development server) 
 
 Or, if you want to create and run the production build, do the following -
 npm run build 
+
 npm install -g serve 
+
 serve -s build 
 
 ## Dashboard Screens
