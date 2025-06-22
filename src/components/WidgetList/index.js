@@ -19,6 +19,7 @@ const WidgetList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formOpen, setFormOpen] = useState(false);
+  const [formErrors, setFormErrors] = useState([]);
   const [editTarget, setEditTarget] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState(null);
@@ -59,9 +60,19 @@ const WidgetList = () => {
 
   const handleFormSubmit = (data) => {
     const action = editTarget ? updateWidget(data.name, data) : createWidget(data);
-    action.then(() => {
+    action
+    .then(() => {
       setFormOpen(false);
+      setFormErrors([]);
       refreshWidgets();
+    })
+    .catch(async (err) => {
+      // Try to extract validation messages
+      if (err.response?.status === 400 && Array.isArray(err.response.data)) {
+        setFormErrors(err.response.data);
+      } else {
+        setFormErrors(["An unexpected error occurred."]);
+      }
     });
   };
 
@@ -116,9 +127,13 @@ const WidgetList = () => {
 
       <WidgetForm
         open={formOpen}
-        onClose={() => setFormOpen(false)}
+        onClose={() => {
+          setFormOpen(false)
+          setFormErrors([])
+        }}
         onSubmit={handleFormSubmit}
         initialData={editTarget}
+        errors={formErrors}
       />
 
       <Typography sx={{ textAlign: 'center' }} variant="h3">

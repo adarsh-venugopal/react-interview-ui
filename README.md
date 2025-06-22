@@ -36,6 +36,8 @@ serve -s build
 
 ![alt text](image-3.png)
 
+![alt text](image-4.png)
+
 ## Issues
 * I faced some issues with a test case (probably something to do with JS hoisting) which I was not able to resolve 
 * I have focussed on achieving the core functionality of CRUD operations for Widgets and not much on the styling. I have just followed the MUI theme that existed in the intial template.

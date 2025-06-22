@@ -6,10 +6,11 @@ import {
   DialogActions,
   Button,
   TextField,
-  Stack
+  Stack,
+  Typography
 } from '@mui/material';
 
-const WidgetForm = ({ open, onClose, onSubmit, initialData = null }) => {
+const WidgetForm = ({ open, onClose, onSubmit, initialData = null, errors = [] }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -67,6 +68,15 @@ const WidgetForm = ({ open, onClose, onSubmit, initialData = null }) => {
           />
         </Stack>
       </DialogContent>
+      {errors.length > 0 && (
+        <Stack spacing={1} sx={{ mt: 2 }}>
+          {errors.map((msg, i) => (
+            <Typography key={i} color="error" variant="body2">
+              {msg}
+            </Typography>
+          ))}
+        </Stack>
+      )}
       <DialogActions>
         <Button onClick={onClose} variant="outlined">Cancel</Button>
         <Button onClick={handleSubmit} variant="contained" color="primary">
