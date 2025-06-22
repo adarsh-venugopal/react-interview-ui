@@ -19,6 +19,7 @@ npm install
 npm start (for starting the development server) 
 
 Or, if you want to create and run the production build, do the following -
+
 npm run build 
 
 npm install -g serve 
