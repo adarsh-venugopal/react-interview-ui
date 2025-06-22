@@ -12,15 +12,15 @@ Follow the steps below -
 
 First, start the backend service by running ./gradlew bootRun.
 
-Then, do
+Then, do 
 
-npm install
-npm start (for starting the development server)
+npm install 
+npm start (for starting the development server) 
 
 Or, if you want to create and run the production build, do the following -
-npm run build
-npm install -g serve
-serve -s build
+npm run build 
+npm install -g serve 
+serve -s build 
 
 ## Dashboard Screens
 
@@ -33,5 +33,5 @@ serve -s build
 ![alt text](image-3.png)
 
 ## Issues
-* I faced some issues with a test case (probably something to do with JS hoisting) which I was not able to resolve
-* I have focussed on achieving the core functionality of CRUD operations for Widgets and not much on the styling. I have just followed the MUI theme that existed.
+* I faced some issues with a test case (probably something to do with JS hoisting) which I was not able to resolve 
+* I have focussed on achieving the core functionality of CRUD operations for Widgets and not much on the styling. I have just followed the MUI theme that existed in the intial template.
